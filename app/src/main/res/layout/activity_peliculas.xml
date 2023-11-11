@@ -6,20 +6,404 @@
     android:layout_height="match_parent"
     tools:context=".peliculas">
 
-    <Button
-        android:id="@+id/pel_butt"
-        android:layout_width="wrap_content"
+
+    <RelativeLayout
+        android:id="@+id/relativeLayout_a"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Button"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="14dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginBottom="8dp"
+        android:orientation="horizontal"
+        android:padding="6dp"
         app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/relativeLayout_a"
+        app:layout_constraintVertical_bias="1.0">
+
+        <ImageView
+            android:id="@+id/pelis_a"
+            android:layout_width="70dp"
+            android:layout_height="81dp"
+            android:layout_alignParentStart="true"
+            android:layout_alignParentLeft="true"
+            android:layout_centerVertical="true"
+            android:layout_gravity="center"
+            android:paddingLeft="10dp"
+            android:paddingRight="10dp"
+            app:srcCompat="@drawable/aaaa" />
+
+        <LinearLayout
+            android:id="@+id/linearLayout_a"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentTop="true"
+            android:layout_marginStart="4dp"
+            android:layout_marginLeft="4dp"
+            android:layout_marginTop="2dp"
+            android:layout_toEndOf="@+id/pelis_a"
+            android:layout_toRightOf="@+id/pelis_a"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/titulo_a"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="2dp"
+                android:text="Titulo: Espideman"
+                android:textColor="@android:color/background_dark"
+                android:textSize="20dp"
+                android:textStyle="bold" />
+
+            <TextView
+                android:id="@+id/Clasificacion_a"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Calificacion:A"
+                android:textSize="18dp" />
+
+            <TextView
+                android:id="@+id/Duracion_a"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Duracion:90"
+                android:textSize="18dp" />
+
+        </LinearLayout>
+
+        <TextView
+            android:id="@+id/disponible_a"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentEnd="true"
+            android:layout_alignParentRight="true"
+            android:layout_marginEnd="6dp"
+            android:layout_marginRight="6dp"
+            android:text="Disponible"
+            android:textSize="20dp"
+            android:textStyle="bold" />
+
+
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:id="@+id/relativeLayout_d"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="14dp"
+        android:orientation="horizontal"
+        android:padding="6dp"
+        app:layout_constraintBottom_toTopOf="@+id/relativeLayout_j"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/relativeLayout_d"
+        app:layout_constraintVertical_bias="1.0">
+
+        <ImageView
+            android:id="@+id/pelis_d"
+            android:layout_width="70dp"
+            android:layout_height="81dp"
+            android:layout_alignParentStart="true"
+            android:layout_alignParentLeft="true"
+            android:layout_centerVertical="true"
+            android:layout_gravity="center"
+            android:paddingLeft="10dp"
+            android:paddingRight="10dp"
+            app:srcCompat="@drawable/dddddd" />
+
+        <LinearLayout
+            android:id="@+id/linear_d"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentTop="true"
+            android:layout_marginStart="4dp"
+            android:layout_marginLeft="4dp"
+            android:layout_marginTop="2dp"
+            android:layout_toEndOf="@+id/pelis_d"
+            android:layout_toRightOf="@+id/pelis_d"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/titulo_d"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="2dp"
+                android:text="Titulo: Espideman"
+                android:textColor="@android:color/background_dark"
+                android:textSize="20dp"
+                android:textStyle="bold" />
+
+            <TextView
+                android:id="@+id/Clasificacion_d"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Calificacion:A"
+                android:textSize="18dp" />
+
+            <TextView
+                android:id="@+id/Duracion_d"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Duracion:90"
+                android:textSize="18dp" />
+
+        </LinearLayout>
+
+        <TextView
+            android:id="@+id/disponible_d"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentEnd="true"
+            android:layout_alignParentRight="true"
+            android:layout_marginEnd="6dp"
+            android:layout_marginRight="6dp"
+            android:text="Disponible"
+            android:textSize="20dp"
+            android:textStyle="bold" />
+
+
+    </RelativeLayout>
+
+    <LinearLayout
+        android:id="@+id/linear_f"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:animateLayoutChanges="true"
+        android:orientation="vertical"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent">
 
-    <androidx.recyclerview.widget.RecyclerView
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        app:layout_constraintBottom_toBottomOf="parent"
+    </LinearLayout>
+    <RelativeLayout
+        android:id="@+id/line_g"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="14dp"
+        android:orientation="horizontal"
+        android:padding="6dp"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent" />
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/line_g">
+
+        <LinearLayout
+        android:id="@+id/line_g"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:layout_marginStart="4dp"
+        android:layout_marginLeft="4dp"
+        android:layout_marginTop="2dp"
+        android:layout_toEndOf="@+id/pelis_g"
+        android:layout_toRightOf="@+id/line_g"
+        android:orientation="vertical"/>
+
+    <TextView
+        android:id="@+id/disponible_g"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentRight="true"
+        android:layout_marginEnd="6dp"
+        android:layout_marginRight="6dp"
+        android:text="Disponible"
+        android:textSize="20dp"
+        android:textStyle="bold" />
+
+
+
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:id="@+id/relativeLayout_h"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="14dp"
+        android:orientation="horizontal"
+        android:padding="6dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/relativeLayout_h">
+
+        <LinearLayout
+            android:id="@+id/linear_h"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentTop="true"
+            android:layout_marginStart="4dp"
+            android:layout_marginLeft="4dp"
+            android:layout_marginTop="2dp"
+            android:layout_toEndOf="@+id/pelis_h"
+            android:layout_toRightOf="@+id/pelis_h"
+            android:orientation="vertical"/>
+
+        <TextView
+            android:id="@+id/disponible_h"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentEnd="true"
+            android:layout_alignParentRight="true"
+            android:layout_marginEnd="6dp"
+            android:layout_marginRight="6dp"
+            android:text="Disponible"
+            android:textSize="20dp"
+            android:textStyle="bold" />
+
+
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:id="@+id/relativeLayout_j"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:padding="6dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintStart_toStartOf="parent"
+        tools:layout_editor_absoluteY="414dp">
+
+        <ImageView
+            android:id="@+id/pelis_j"
+            android:layout_width="70dp"
+            android:layout_height="81dp"
+            android:layout_alignParentStart="true"
+            android:layout_alignParentLeft="true"
+            android:layout_centerVertical="true"
+            android:layout_gravity="center"
+            android:paddingLeft="10dp"
+            android:paddingRight="10dp"
+            app:srcCompat="@drawable/jjjjjjjj" />
+
+        <LinearLayout
+            android:id="@+id/linearLayout_j"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentTop="true"
+            android:layout_marginStart="4dp"
+            android:layout_marginLeft="4dp"
+            android:layout_marginTop="2dp"
+            android:layout_toEndOf="@+id/pelis_j"
+            android:layout_toRightOf="@+id/pelis_j"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/titulo_j"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="2dp"
+                android:text="Titulo: Espideman"
+                android:textColor="@android:color/background_dark"
+                android:textSize="20dp"
+                android:textStyle="bold" />
+
+            <TextView
+                android:id="@+id/Clasificacion_j"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Calificacion:A"
+                android:textSize="18dp" />
+
+            <TextView
+                android:id="@+id/Duracion_j"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Duracion:90"
+                android:textSize="18dp" />
+
+        </LinearLayout>
+
+        <TextView
+            android:id="@+id/disponible_j"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentEnd="true"
+            android:layout_alignParentRight="true"
+            android:layout_marginEnd="6dp"
+            android:layout_marginRight="6dp"
+            android:text="Disponible"
+            android:textSize="20dp"
+            android:textStyle="bold" />
+
+
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:padding="6dp"
+        tools:layout_editor_absoluteX="3dp"
+        tools:layout_editor_absoluteY="523dp">
+
+        <ImageView
+            android:id="@+id/pelis_f"
+            android:layout_width="70dp"
+            android:layout_height="81dp"
+            android:layout_alignParentStart="true"
+            android:layout_alignParentLeft="true"
+            android:layout_centerVertical="true"
+            android:layout_gravity="center"
+            android:paddingLeft="10dp"
+            android:paddingRight="10dp"
+            app:srcCompat="@drawable/fffffff" />
+
+        <LinearLayout
+            android:id="@+id/linea_f"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentTop="true"
+            android:layout_marginStart="4dp"
+            android:layout_marginLeft="4dp"
+            android:layout_marginTop="2dp"
+            android:layout_toEndOf="@+id/pelis_f"
+            android:layout_toRightOf="@+id/pelis_f"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/titulo_f"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="2dp"
+                android:text="Titulo: Espideman"
+                android:textColor="@android:color/background_dark"
+                android:textSize="20dp"
+                android:textStyle="bold" />
+
+            <TextView
+                android:id="@+id/Clasificacion_f"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Calificacion:A"
+                android:textSize="18dp" />
+
+            <TextView
+                android:id="@+id/Duracion_f"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Duracion:90"
+                android:textSize="18dp" />
+
+        </LinearLayout>
+
+        <TextView
+            android:id="@+id/disponible_f"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentEnd="true"
+            android:layout_alignParentRight="true"
+            android:layout_marginEnd="6dp"
+            android:layout_marginRight="6dp"
+            android:text="Disponible"
+            android:textSize="20dp"
+            android:textStyle="bold" />
+
+
+    </RelativeLayout>
+
+
 </androidx.constraintlayout.widget.ConstraintLayout>
