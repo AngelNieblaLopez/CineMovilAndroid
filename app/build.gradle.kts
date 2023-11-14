@@ -3,11 +3,11 @@ plugins {
 }
 
 android {
-    namespace = "com.example.cine"
+    namespace = "com.example.cinemovil"
     compileSdk = 34
 
     defaultConfig {
-        applicationId = "com.example.cine"
+        applicationId = "com.example.cinemovil"
         minSdk = 24
         targetSdk = 33
         versionCode = 1

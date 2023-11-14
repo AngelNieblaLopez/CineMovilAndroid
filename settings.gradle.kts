@@ -13,6 +13,6 @@ dependencyResolutionManagement {
     }
 }
 
-rootProject.name = "CINE"
+rootProject.name = "Cine Movil"
 include(":app")
  
