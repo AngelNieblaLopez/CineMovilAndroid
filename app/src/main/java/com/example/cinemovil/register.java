@@ -25,6 +25,6 @@ public class register extends AppCompatActivity {
             public void onClick(View v) {
 
             }
-        }
-    });
+        });
+    };
 }
