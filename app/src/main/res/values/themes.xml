@@ -1,9 +1,10 @@
 <resources xmlns:tools="http://schemas.android.com/tools">
     <!-- Base application theme. -->
-    <style name="Base.Theme.CineMovil" parent="Theme.MaterialComponents.DayNight.NoActionBar">
+    <style name="Base.Theme.Magic" parent="Theme.MaterialComponents.DayNight.NoActionBar">
         <!-- Customize your light theme here. -->
         <!-- <item name="colorPrimary">@color/my_light_primary</item> -->
+        <item name="colorPrimaryDark">@color/main</item>
     </style>
 
-    <style name="Theme.CineMovil" parent="Base.Theme.CineMovil" />
+    <style name="Theme.Magic" parent="Base.Theme.Magic" />
 </resources>
