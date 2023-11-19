@@ -13,6 +13,6 @@ dependencyResolutionManagement {
     }
 }
 
-rootProject.name = "Cine Movil"
+rootProject.name = "magic"
 include(":app")
  
