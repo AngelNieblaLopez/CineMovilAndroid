@@ -20,7 +20,7 @@ private Button loginBtn;
 
         initView();
     }
-
+/* Comment */
     private void initView() {
         userEdt=findViewById(R.id.editTextText);
         passEdt=findViewById(R.id.editTextPassword);
