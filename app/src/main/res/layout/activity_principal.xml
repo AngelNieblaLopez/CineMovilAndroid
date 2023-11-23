@@ -5,6 +5,8 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/main"
+    android:focusable="true"
+    android:focusableInTouchMode="true"
     tools:context=".Activities.Principal">
 
     <ScrollView
@@ -40,8 +42,8 @@
                     android:id="@+id/viewpagerSlider"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:paddingStart="60dp"
-                    android:paddingEnd="60dp"
+                    android:paddingStart="40dp"
+                    android:paddingEnd="40dp"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
@@ -68,7 +70,7 @@
                 <androidx.recyclerview.widget.RecyclerView
                     android:id="@+id/view1"
                     android:layout_width="match_parent"
-                    android:layout_height="match_parent"
+                    android:layout_height="wrap_content"
                     android:clipToPadding="false"
                     android:paddingStart="12dp"
                     android:paddingEnd="12dp"
@@ -107,10 +109,11 @@
                 <androidx.recyclerview.widget.RecyclerView
                     android:id="@+id/view2"
                     android:layout_width="match_parent"
-                    android:layout_height="match_parent"
+                    android:layout_height="wrap_content"
                     android:clipToPadding="false"
                     android:paddingStart="12dp"
                     android:paddingEnd="12dp"
+                    android:paddingBottom="70dp"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"

@@ -1,4 +1,4 @@
-package com.example.magic.Domian;
+package com.example.magic.Domain;
 
 public class SliderItems {
     private int image;

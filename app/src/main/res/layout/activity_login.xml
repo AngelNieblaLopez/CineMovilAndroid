@@ -22,11 +22,12 @@
                 android:id="@+id/textView"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Inicio de sesion"
-                android:textSize="45sp"
-                android:textColor="@color/white"
-                android:layout_marginTop="120dp"
                 android:layout_marginStart="32dp"
+                android:layout_marginTop="120dp"
+                android:layout_marginEnd="32dp"
+                android:text="Inicio de sesion"
+                android:textColor="@color/white"
+                android:textSize="45sp"
                 android:textStyle="bold" />
 
             <EditText
