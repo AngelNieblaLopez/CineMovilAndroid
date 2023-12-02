@@ -4,8 +4,10 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.magic.R;
@@ -35,5 +37,26 @@ private Button loginBtn;
                 Toast.makeText(login.this, "Su correo o contraseña no es correcta", Toast.LENGTH_SHORT).show();
             }
         });
+        TextView contra_R= findViewById(R.id.contra_R);
+        contra_R.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                // Crear un Intent para ir a Activity2
+                Intent intent = new Intent(login.this, registro.class);
+                startActivity(intent);
+            }
+        });
+
+        TextView url= findViewById(R.id.url);
+        url.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                // Crear un Intent para ir a Activity2
+                Intent intent = new Intent(login.this, Guardar_url.class);
+                startActivity(intent);
+            }
+        });
+
+
     }
 }
