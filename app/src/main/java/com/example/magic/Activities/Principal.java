@@ -46,20 +46,42 @@ public class Principal extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_principal);
 
-        LinearLayout silla= findViewById(R.id.silla);
-        silla.setOnClickListener(new View.OnClickListener() {
+        LinearLayout usuario= findViewById(R.id.usuario);
+        usuario.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                // Crear un Intent para ir a Activity2
-                Intent intent = new Intent(Principal.this, sillas.class);
+
+                Intent intent = new Intent(Principal.this, usuario.class);
                 startActivity(intent);
             }
         });
+        LinearLayout favoritos= findViewById(R.id.favoritos);
+        favoritos.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                Intent intent = new Intent(Principal.this, favoritos.class);
+                startActivity(intent);
+            }
+        });
+        LinearLayout cines= findViewById(R.id.cines);
+        cines.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                Intent intent = new Intent(Principal.this, cines.class);
+                startActivity(intent);
+            }
+        });
+
+
 
         initView();
         banners();
         sendRequestCartelera();
         sendRequestPreventa();
+
+
     }
 
     private void sendRequestCartelera() {
@@ -96,9 +118,8 @@ public class Principal extends AppCompatActivity {
 
     private void banners() {
         List<SliderItems> sliderItems= new ArrayList<>();
-        sliderItems.add(new SliderItems(R.drawable.wide));
+        sliderItems.add(new SliderItems(R.drawable.wide2));
         sliderItems.add(new SliderItems(R.drawable.wide1));
-        sliderItems.add(new SliderItems(R.drawable.wide3));
 
         viewPager2.setAdapter(new SliderAdapters(sliderItems,viewPager2));
         viewPager2.setClipToPadding(false);

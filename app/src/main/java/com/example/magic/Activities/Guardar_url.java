@@ -5,14 +5,15 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
-import android.widget.EditText;
 import android.widget.TextView;
 
 import com.example.magic.R;
 
 public class Guardar_url extends AppCompatActivity {
 
-    private EditText editTextUrl;
+    // Define tu URL estático aquí
+    private static final String URL_ESTATICO = "https://www.ejemplo.com";
+
     private Button btnGuardar;
     private TextView textViewUrlGuardado;
 
@@ -21,7 +22,6 @@ public class Guardar_url extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_guardar_url);
 
-        editTextUrl = findViewById(R.id.editTextUrl);
         btnGuardar = findViewById(R.id.btnGuardar);
         textViewUrlGuardado = findViewById(R.id.textViewUrlGuardado);
 
@@ -31,17 +31,15 @@ public class Guardar_url extends AppCompatActivity {
                 guardarURL();
             }
         });
-
     }
-    private void guardarURL() {
-        String url = editTextUrl.getText().toString();
 
-        if (!url.isEmpty()) {
-            // Aquí podrías guardar el URL en SharedPreferences, base de datos, o cualquier otro almacenamiento que prefieras.
-            // En este ejemplo, simplemente lo mostraremos en el TextView.
-            textViewUrlGuardado.setText("URL Guardado: " + url);
-        } else {
-            editTextUrl.setError("Ingrese un URL válido");
-        }
+    private void guardarURL() {
+        // Utiliza el URL estático en lugar de obtenerlo desde el EditText
+        String url = URL_ESTATICO;
+
+        // Puedes omitir la verificación de si el URL está vacío en este caso
+
+        // Muestra el URL en el TextView
+        textViewUrlGuardado.setText("URL Guardado: " + url);
     }
 }

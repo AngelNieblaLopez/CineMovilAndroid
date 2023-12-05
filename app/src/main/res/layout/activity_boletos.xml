@@ -6,35 +6,27 @@
     android:layout_height="match_parent"
     tools:context=".Activities.boletos">
 
-    <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-        xmlns:tools="http://schemas.android.com/tools"
+    <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:padding="16dp"
         tools:context=".VentaBoletosActivity">
 
-        <TextView
-            android:id="@+id/textViewTitulo"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="Venta de Boletos"
-            android:textSize="20sp"
-            android:textStyle="bold"
-            android:layout_marginBottom="16dp"/>
 
-        <Spinner
-            android:id="@+id/spinnerCantidadBoletos"
+        <EditText
+            android:id="@+id/editTextCantidadBoletos"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_below="@id/textViewTitulo"
-            android:layout_marginTop="16dp"/>
+            android:hint="Boletos"
+            android:inputType="number"
+            android:maxLength="2" />
 
         <Button
             android:id="@+id/btnComprar"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="Comprar"
-            android:layout_below="@id/spinnerCantidadBoletos"
+            android:layout_below="@id/editTextCantidadBoletos"
             android:layout_marginTop="16dp"/>
 
         <TextView

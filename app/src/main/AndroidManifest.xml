@@ -15,6 +15,27 @@
         android:theme="@style/Theme.Magic"
         tools:targetApi="34">
         <activity
+            android:name=".Activities.registroN"
+            android:exported="false" />
+        <activity
+            android:name=".Activities.contra_recuperar"
+            android:exported="false" />
+        <activity
+            android:name=".Activities.usuario"
+            android:exported="false" />
+        <activity
+            android:name=".Activities.favoritos"
+            android:exported="false" />
+        <activity
+            android:name=".Activities.cines"
+            android:exported="false" />
+        <activity
+            android:name=".Activities.PagoActivity"
+            android:exported="false" />
+        <activity
+            android:name=".Activities.pagar"
+            android:exported="false" />
+        <activity
             android:name=".Activities.boletos"
             android:exported="false" />
         <activity
@@ -24,7 +45,7 @@
             android:name=".Activities.Guardar_url"
             android:exported="false" />
         <activity
-            android:name=".Activities.registro"
+            android:name=".Activities.Nregistro"
             android:exported="false" />
         <activity
             android:name=".Activities.Detalles"

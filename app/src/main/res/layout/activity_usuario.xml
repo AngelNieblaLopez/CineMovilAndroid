@@ -25,11 +25,27 @@
                 android:layout_marginStart="32dp"
                 android:layout_marginTop="120dp"
                 android:layout_marginEnd="32dp"
-                android:text="Inicio de sesion"
+                android:text="Registrar usuario"
                 android:textAlignment="center"
                 android:textColor="@color/white"
-                android:textSize="45sp"
+                android:textSize="40sp"
                 android:textStyle="bold" />
+
+            <EditText
+                android:id="@+id/etNombre"
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:hint="Nombre"
+                android:textAlignment="center"
+                android:textColor="@color/white"
+                android:textColorHint="@color/white"
+                android:ems="10"
+                android:background="@drawable/edittext_background"
+                android:layout_marginTop="128dp"
+                android:layout_marginStart="32dp"
+                android:layout_marginEnd="32dp"
+                android:inputType="text"
+                />
 
             <EditText
                 android:id="@+id/etCorreo"
@@ -41,11 +57,11 @@
                 android:textColorHint="@color/white"
                 android:ems="10"
                 android:background="@drawable/edittext_background"
-                android:layout_marginTop="128dp"
+                android:layout_marginTop="32dp"
                 android:layout_marginStart="32dp"
                 android:layout_marginEnd="32dp"
                 android:inputType="text"
-                 />
+                />
 
             <EditText
                 android:id="@+id/etPass"
@@ -63,28 +79,8 @@
                 android:inputType="textPassword"
                 />
 
-            <TextView
-                android:id="@+id/contra"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="16dp"
-                android:text="¿Olvidaste tu contraseña?"
-                android:textAlignment="center"
-                android:textColor="@color/white"
-                android:textSize="16sp" />
-
-            <TextView
-                android:id="@+id/url"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="16dp"
-                android:text="Url"
-                android:textAlignment="center"
-                android:textColor="@color/white"
-                android:textSize="16sp" />
-
             <androidx.appcompat.widget.AppCompatButton
-                android:id="@+id/loginBtn"
+                android:id="@+id/registroBtn"
                 style="@android:style/Widget.Button"
                 android:layout_marginTop="64dp"
                 android:layout_marginStart="32dp"
@@ -95,23 +91,23 @@
                 android:textColor="@color/white"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="INGRESAR" />
+                android:text="REGISTRAR" />
 
             <TextView
                 android:id="@+id/contra_no"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="¿No tienes una cuenta?"
+                android:text="¿Ya tienes una cuenta?"
                 android:textColor="@color/white"
                 android:textSize="16sp"
                 android:textAlignment="center"
                 android:layout_marginTop="20dp" />
 
             <TextView
-                android:id="@+id/contra_R"
+                android:id="@+id/contra_RR"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Registrate"
+                android:text="Inicia sesion"
                 android:textAlignment="center"
                 android:textColor="@color/white"
                 android:textSize="16sp"

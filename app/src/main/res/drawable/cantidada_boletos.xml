@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<selector xmlns:android="http://schemas.android.com/apk/res/android">
+    <resources>
+        <string-array name="opciones_cantidad_boletos">
+            <item>1</item>
+            <item>2</item>
+            <item>3</item>
+            <!-- Agrega más opciones según sea necesario -->
+        </string-array>
+        <string name="hint_cantidad_boletos">Cantidad de boletos</string>
+    </resources>
+</selector>

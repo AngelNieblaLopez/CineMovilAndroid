@@ -1,3 +1,5 @@
 <resources>
     <string name="app_name">magic</string>
+    <string name="hint_cantidadBoletos">Tu Hint Aquí</string>
+
 </resources>

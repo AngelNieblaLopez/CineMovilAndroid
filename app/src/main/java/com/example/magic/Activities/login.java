@@ -24,8 +24,8 @@ private Button loginBtn;
     }
 
     private void initView() {
-        userEdt=findViewById(R.id.editTextText);
-        passEdt=findViewById(R.id.editTextPassword);
+        userEdt=findViewById(R.id.etCorreo);
+        passEdt=findViewById(R.id.etPass);
         loginBtn=findViewById(R.id.loginBtn);
 
         loginBtn.setOnClickListener(v -> {
@@ -37,13 +37,15 @@ private Button loginBtn;
                 Toast.makeText(login.this, "Su correo o contraseña no es correcta", Toast.LENGTH_SHORT).show();
             }
         });
+
+
         TextView contra_R= findViewById(R.id.contra_R);
         contra_R.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                // Crear un Intent para ir a Activity2
-                Intent intent = new Intent(login.this, registro.class);
-                startActivity(intent);
+
+                startActivity(new Intent(login.this, registroN.class));
+
             }
         });
 
@@ -56,7 +58,17 @@ private Button loginBtn;
                 startActivity(intent);
             }
         });
+        TextView contra= findViewById(R.id.contra);
+        contra.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                // Crear un Intent para ir a Activity2
+                Intent intent = new Intent(login.this, contra_recuperar.class);
+                startActivity(intent);
+            }
+        });
 
 
     }
+
 }
