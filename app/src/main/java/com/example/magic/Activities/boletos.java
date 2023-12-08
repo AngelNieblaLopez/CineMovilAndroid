@@ -39,12 +39,12 @@ public class boletos extends AppCompatActivity {
             }
         });
 
-        Button btnComprar= findViewById(R.id.btnComprar);
-        btnComprar.setOnClickListener(new View.OnClickListener() {
+        Button btnsillas= findViewById(R.id.btnsillas);
+        btnsillas.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 // Crear un Intent para ir a Activity2
-                Intent intent = new Intent(boletos.this, PagoActivity.class);
+                Intent intent = new Intent(boletos.this, sillas.class);
                 startActivity(intent);
             }
         });

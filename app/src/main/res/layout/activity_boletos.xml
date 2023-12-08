@@ -29,6 +29,14 @@
             android:layout_below="@id/editTextCantidadBoletos"
             android:layout_marginTop="16dp"/>
 
+        <Button
+            android:id="@+id/btnsillas"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="sillas"
+            android:layout_below="@id/btnComprar"
+        android:layout_marginTop="50dp"/>
+
         <TextView
             android:id="@+id/textViewResultado"
             android:layout_width="match_parent"

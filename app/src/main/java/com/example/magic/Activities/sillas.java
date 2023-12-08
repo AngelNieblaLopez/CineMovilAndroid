@@ -5,6 +5,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
+import android.view.Gravity;
 import android.view.View;
 import android.widget.Button;
 import android.widget.GridLayout;
@@ -27,43 +28,14 @@ public class sillas extends AppCompatActivity {
         // Crea y agrega botones dinámicamente
         crearBotones(gridLayout);
 
-        // Configura los clics en los botones "Guardar" y "Next"
-        Button btnGuardar = findViewById(R.id.btnGuardar);
-        Button btnNext = findViewById(R.id.btnNext);
 
-        btnGuardar.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                // Lógica para guardar
-                Toast.makeText(sillas.this, "Guardar", Toast.LENGTH_SHORT).show();
-            }
-        });
-
-        btnNext.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                // Lógica para ir al siguiente paso
-                Toast.makeText(sillas.this, "Next", Toast.LENGTH_SHORT).show();
-                Intent intent = new Intent(sillas.this, boletos.class);
-                startActivity(intent);
-            }
-        });
-
-        // Crea y agrega botones dinámicos "Next" y "Guardado"
-        crearBotonDinamico(gridLayout, "Next", new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                // Lógica para el clic en el botón "Next" dinámico
-                Toast.makeText(sillas.this, "Next", Toast.LENGTH_SHORT).show();
-            }
-        });
 
         crearBotonDinamico(gridLayout, "Guardado", new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 // Lógica para el clic en el botón "Guardado" dinámico
                 Toast.makeText(sillas.this, "Guardado", Toast.LENGTH_SHORT).show();
-                Intent intent = new Intent(sillas.this, boletos.class);
+                Intent intent = new Intent(sillas.this, PagoActivity.class);
                 startActivity(intent);
             }
         });
@@ -71,21 +43,27 @@ public class sillas extends AppCompatActivity {
 
     private void crearBotones(GridLayout gridLayout) {
         // Número de botones que deseas crear
-        int numeroDeBotones = 40;
+        int numeroDeBotones = 24;
+        String[] columnas = { "A", "B", "C", "D" };
 
         for (int i = 1; i <= numeroDeBotones; i++) {
+            String texto = "";
             // Crea un nuevo botón
+            if (i >= 1 && i <= 6) {
+                texto = columnas[0] + "" + i;
+            } else if (i >= 7 && i <= 12) {
+                texto = columnas[1] + "" + i;
+            } else if (i >= 13 && i <= 18) {
+                texto = columnas[2] + "" + i;
+            } else if (i >= 19 && i <= 24) {
+                texto = columnas[3] + "" + i;
+            }
+
             Button button = new Button(this);
 
             // Establece el texto del botón (puedes personalizarlo según tus necesidades)
-            button.setText("Botón " + i);
-
-            // Cambia el nombre del botón
-            String nuevoNombre = "" + i;
-            button.setText(nuevoNombre);
-
-            // Establece un identificador único para el botón
-            button.setId(View.generateViewId());
+            button.setText(texto);
+            button.setTag("button-" + String.valueOf(i));
 
             // Configura la acción al hacer clic en el botón
             button.setOnClickListener(new View.OnClickListener() {
@@ -128,13 +106,15 @@ public class sillas extends AppCompatActivity {
         button.setText(texto);
         button.setOnClickListener(onClickListener);
 
-        // Resto del código para diseño y añadir al GridLayout
-        // ...
+        // Centra el botón dentro del GridLayout
         GridLayout.LayoutParams params = new GridLayout.LayoutParams();
         params.width = GridLayout.LayoutParams.WRAP_CONTENT;
         params.height = GridLayout.LayoutParams.WRAP_CONTENT;
         params.setMargins(5, 5, 5, 5); // Márgenes para el contorno
         button.setLayoutParams(params);
+
+        // Centra el botón horizontalmente
+        button.setGravity(Gravity.CENTER_HORIZONTAL);
 
         // Agrega el botón al GridLayout
         gridLayout.addView(button);

@@ -4,64 +4,62 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.view.Gravity;
 import android.view.View;
-import android.view.ViewGroup;
 import android.widget.Button;
-import android.widget.LinearLayout;
-import android.widget.TextView;
+import android.widget.EditText;
 import android.widget.Toast;
-
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.magic.R;
 
 public class PagoActivity extends AppCompatActivity {
 
-    @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_pago);
 
-        // Crear un LinearLayout como diseño principal
-        LinearLayout linearLayout = new LinearLayout(this);
-        linearLayout.setLayoutParams(new ViewGroup.LayoutParams(
-                ViewGroup.LayoutParams.MATCH_PARENT,
-                ViewGroup.LayoutParams.MATCH_PARENT));
-        linearLayout.setOrientation(LinearLayout.VERTICAL);
-        linearLayout.setGravity(Gravity.CENTER);
+        // Obtener referencias a los elementos del diseño
+        EditText editTextCardNumber = findViewById(R.id.editTextCardNumber);
+        EditText editTextExpiryDate = findViewById(R.id.editTextExpiryDate);
+        EditText editTextCardPin = findViewById(R.id.editTextCardPin);
+        EditText editTextPropietario = findViewById(R.id.editTextPropietario); // Nuevo campo para el propietario
+        Button btnPagar = findViewById(R.id.btnPagar);
 
-        // Crear un botón de pago dinámicamente
-        Button btnPagar = new Button(this);
-        btnPagar.setText("Pagar");
-        btnPagar.setLayoutParams(new ViewGroup.LayoutParams(
-                ViewGroup.LayoutParams.WRAP_CONTENT,
-                ViewGroup.LayoutParams.WRAP_CONTENT));
-
-        // Agregar un Listener al botón para manejar el evento de clic
+        // Configurar un Listener para el botón de pago
         btnPagar.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                // Lógica para manejar el evento de clic (puedes implementar la lógica de pago aquí)
-                realizarPago();
+                // Obtener la información ingresada por el usuario
+                String numeroTarjeta = editTextCardNumber.getText().toString();
+                String fechaVencimiento = editTextExpiryDate.getText().toString();
+                String nipTarjeta = editTextCardPin.getText().toString();
+                String propietario = editTextPropietario.getText().toString(); // Obtener el propietario
+
+                // Validar que todos los campos estén completos (agrega lógica de validación según tus necesidades)
+                if (numeroTarjeta.isEmpty() || fechaVencimiento.isEmpty() || nipTarjeta.isEmpty() || propietario.isEmpty()) {
+                    Toast.makeText(PagoActivity.this, "Por favor, complete todos los campos", Toast.LENGTH_SHORT).show();
+                    return;
+                }
+
+                // Enviar la información a la lógica de pago (aquí puedes integrar tu pasarela de pago)
+                realizarPago(numeroTarjeta, fechaVencimiento, nipTarjeta, propietario);
             }
         });
-
-        // Agregar el botón al LinearLayout
-        linearLayout.addView(btnPagar);
-
-        // Establecer el LinearLayout como el diseño principal de la actividad
-        setContentView(linearLayout);
-
     }
 
-    private void realizarPago() {
-        // Aquí puedes implementar la lógica para procesar el pago
-        // (por ejemplo, iniciar un proceso de pago, mostrar una pasarela de pago, etc.)
+    private void realizarPago(String numeroTarjeta, String fechaVencimiento, String nipTarjeta, String propietario) {
+        // Implementa la lógica para procesar el pago aquí
+        // Puedes integrar tu pasarela de pago y manejar la lógica correspondiente
 
-        // En este ejemplo, mostraremos un mensaje de éxito
-        Toast.makeText(this, "Pago realizado con éxito", Toast.LENGTH_SHORT).show();
+        // Por ejemplo, mostrar un mensaje de éxito con los detalles del pago
+        String mensajeExito = "Pago realizado con éxito\n" +
+                "Número de tarjeta: " + numeroTarjeta + "\n" +
+                "Fecha de vencimiento: " + fechaVencimiento + "\n" +
+                "NIP de la tarjeta: " + nipTarjeta + "\n" +
+                "Propietario: " + propietario;
+
+        Toast.makeText(this, mensajeExito, Toast.LENGTH_SHORT).show();
+
+        // Puedes realizar más acciones según el resultado del pago, como navegar a otra actividad, etc.
     }
-
-
-
 }

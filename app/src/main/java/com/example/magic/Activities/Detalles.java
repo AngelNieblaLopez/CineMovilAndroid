@@ -1,5 +1,6 @@
 package com.example.magic.Activities;
 
+import android.app.AlertDialog;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
@@ -23,6 +24,10 @@ import com.example.magic.Domain.FilmItem;
 import com.example.magic.R;
 import com.google.gson.Gson;
 
+import java.util.ArrayList;
+import java.util.List;
+
+
 public class Detalles extends AppCompatActivity {
     private RequestQueue mRequestQueue;
     private StringRequest mStringRequest;
@@ -34,26 +39,65 @@ public class Detalles extends AppCompatActivity {
     private RecyclerView recyclerViewActors, recyclerViewCategory;
     private NestedScrollView scrollView;
 
+    private Button btnShowHorarios;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_detalles);
 
-        idFilm=getIntent().getIntExtra("id", 0);
+        idFilm = getIntent().getIntExtra("id", 0);
         initView();
         sendRequest();
 
-        Button comprar = findViewById(R.id.comprar);
-        comprar.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                // Crear un Intent para ir a Activity2
-                Intent intent = new Intent(Detalles.this, sillas.class);
-                startActivity(intent);
-            }
-        });
-
+        // Move this line here
+        btnShowHorarios = findViewById(R.id.btnShowHorarios);
+        btnShowHorarios.setOnClickListener(v -> showHorarios());
     }
+
+    private void showHorarios() {
+
+        List<String> horarios = obtenerHorariosDinamicos();
+
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        builder.setTitle("Horarios Disponibles")
+                .setItems(horarios.toArray(new String[0]), (dialog, which) -> {
+                    // Lógica para manejar la selección del horario si es necesario
+                    String selectedHorario = horarios.get(which);
+                    // Aquí puedes usar un Intent para llevar al usuario a otra actividad
+                    // Puedes reemplazar NuevaActividad.class con el nombre de tu nueva actividad
+                    Intent intent = new Intent(Detalles.this, boletos.class);
+                    // Puedes pasar datos adicionales a la nueva actividad si es necesario
+                    intent.putExtra("selectedHorario", selectedHorario);
+                    startActivity(intent);
+                });
+
+
+
+        builder.create().show();
+    }
+    private List<String> obtenerHorariosDinamicos() {
+        // Aquí puedes obtener los horarios de forma dinámica, por ejemplo, desde un servicio o base de datos
+        // Retorna una lista de horarios (Strings)
+        List<String> horarios = new ArrayList<>();
+        horarios.add("Horario 1");
+        horarios.add("Horario 2");
+        horarios.add("Horario 3");
+        horarios.add("Horario 4");
+        horarios.add("Horario 5");
+        horarios.add("Horario 6");
+        horarios.add("Horario 7");
+        horarios.add("Horario 8");
+        horarios.add("Horario 9");
+        horarios.add("Horario 10");
+        horarios.add("Horario 11");
+        horarios.add("Horario 12");
+        horarios.add("Horario 13");
+        horarios.add("Horario 14");
+        horarios.add("Horario 15");
+        return horarios;
+    }
+
 
     private void sendRequest() {
         mRequestQueue= Volley.newRequestQueue(this);

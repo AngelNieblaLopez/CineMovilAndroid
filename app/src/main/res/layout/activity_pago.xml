@@ -6,4 +6,49 @@
     android:layout_height="match_parent"
     tools:context=".Activities.PagoActivity">
 
+    <LinearLayout
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:padding="16dp">
+
+        <!-- Elementos de entrada para la información de la tarjeta -->
+
+        <EditText
+            android:id="@+id/editTextPropietario"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="Nombre del Propietario"
+            android:inputType="textPersonName"/>
+
+        <EditText
+            android:id="@+id/editTextCardNumber"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="Número de Tarjeta"/>
+        <EditText
+            android:id="@+id/editTextExpiryDate"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="Fecha de vencimiento"/>
+
+        <EditText
+            android:id="@+id/editTextCardPin"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="NIP de la Tarjeta"/>
+
+
+
+        <!-- Botón de pago -->
+        <Button
+            android:id="@+id/btnPagar"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Pagar"/>
+
+    </LinearLayout>
+
+
 </androidx.constraintlayout.widget.ConstraintLayout>
