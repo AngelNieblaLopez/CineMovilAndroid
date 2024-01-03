@@ -25,9 +25,10 @@
             android:id="@+id/btnComprar"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Comprar"
             android:layout_below="@id/editTextCantidadBoletos"
-            android:layout_marginTop="16dp"/>
+            android:layout_marginTop="16dp"
+            android:text="Comprar"
+            android:visibility="invisible" />
 
         <Button
             android:id="@+id/btnsillas"

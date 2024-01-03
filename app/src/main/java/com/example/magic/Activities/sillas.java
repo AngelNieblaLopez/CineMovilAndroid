@@ -14,8 +14,10 @@ import android.widget.Toast;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.magic.R;
+import com.example.magic.globals;
 
 public class sillas extends AppCompatActivity {
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -34,6 +36,11 @@ public class sillas extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 // Lógica para el clic en el botón "Guardado" dinámico
+                if(globals.quantitySeats != globals.seatsIds.size()){
+                    showMessage("No se seleccionaron todos los asientos requeridos");
+                    return;
+                }
+
                 Toast.makeText(sillas.this, "Guardado", Toast.LENGTH_SHORT).show();
                 Intent intent = new Intent(sillas.this, PagoActivity.class);
                 startActivity(intent);
@@ -63,23 +70,23 @@ public class sillas extends AppCompatActivity {
 
             // Establece el texto del botón (puedes personalizarlo según tus necesidades)
             button.setText(texto);
-            button.setTag("button-" + String.valueOf(i));
+            button.setTag(String.valueOf(i));
 
             // Configura la acción al hacer clic en el botón
             button.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
+                    String seatId = (String) view.getTag();
+                    globals.toggleSeat(seatId);
                     // Maneja la lógica cuando se hace clic en el botón
                     if (!button.isSelected()) {
                         // Si no está seleccionado, selecciónalo y marca el botón
                         button.setSelected(true);
                         button.setBackgroundColor(Color.parseColor("#ff0000")); // Cambia el color de fondo al seleccionar
-                        Toast.makeText(sillas.this, "Botón seleccionado: " + button.getText(), Toast.LENGTH_SHORT).show();
                     } else {
                         // Si ya está seleccionado, desmárcalo
                         button.setSelected(false);
                         button.setBackgroundColor(Color.parseColor("#ffffff")); // Restaura el color de fondo original
-                        Toast.makeText(sillas.this, "Botón deseleccionado: " + button.getText(), Toast.LENGTH_SHORT).show();
                     }
                 }
             });
@@ -120,5 +127,9 @@ public class sillas extends AppCompatActivity {
         gridLayout.addView(button);
 
 
+    }
+
+    public void showMessage(String message) {
+        Toast.makeText(sillas.this, message, Toast.LENGTH_SHORT).show();
     }
 }

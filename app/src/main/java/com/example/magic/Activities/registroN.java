@@ -16,11 +16,17 @@ import android.widget.Toast;
 import com.android.volley.AuthFailureError;
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
-import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
 import com.example.magic.R;
+import com.example.magic.globals;
+import com.example.magic.retrofit.ApiRetrofit;
+import com.example.magic.retrofit.clients.ApiClientLogin;
+import com.example.magic.retrofit.clients.ApiResponseClientLogin;
+import com.example.magic.retrofit.clients.ApiResponseClientRegister;
+import com.example.magic.retrofit.clients.ApiSendClientRegister;
+import com.example.magic.retrofit.clients.Client;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -28,9 +34,13 @@ import org.json.JSONObject;
 import java.util.HashMap;
 import java.util.Map;
 
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
+
 public class registroN extends AppCompatActivity{
 
-    EditText nombre, correo, pass;
+    EditText name, lastName, secondLastName, email, password;
     Button insertar;
 
     @Override
@@ -38,9 +48,12 @@ public class registroN extends AppCompatActivity{
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_registro_n);
 
-        nombre = findViewById(R.id.etNombre);
-        correo = findViewById(R.id.etCorreo);
-        pass = findViewById(R.id.etPass);
+        name = findViewById(R.id.etNombre);
+        lastName = findViewById(R.id.etLastName);
+        secondLastName = findViewById(R.id.etSecondLastName);
+        name = findViewById(R.id.etNombre);
+        email = findViewById(R.id.etCorreo);
+        password = findViewById(R.id.etPass);
         insertar = findViewById(R.id.registroBtn);
 
         insertar.setOnClickListener(new View.OnClickListener() {
@@ -61,57 +74,61 @@ public class registroN extends AppCompatActivity{
     }
 
     private void insertarDatos() {
-        final String Nombre = nombre.getText().toString().trim();
-        final String Correo = correo.getText().toString().trim();
-        final String Pass = pass.getText().toString().trim();
+        final String Nombre = name.getText().toString().trim();
+        final String Correo = email.getText().toString().trim();
+        final String Pass = password.getText().toString().trim();
+        final String primerApellido = lastName.getText().toString().trim();
+        final String segundoApellido = secondLastName.getText().toString().trim();
 
         final ProgressDialog progressDialog = new ProgressDialog(this);
         progressDialog.setMessage("cargando");
 
-        if(nombre.getText().toString().isEmpty()){
-            nombre.setError("Ingrese un nombre");
+        if(Nombre.isEmpty()){
+            name.setError("Ingrese un nombre");
             return;
-        }else if (correo.getText().toString().isEmpty()){
-            correo.setError("Ingrese un correo");
+        }else if (Correo.isEmpty()){
+            email.setError("Ingrese un correo");
             return;
-        }
-        else {
+        } else if (Pass.isEmpty()) {
+            password.setError("Ingrese una contraseña");
+        } else if(primerApellido.isEmpty()){
+            lastName.setError("Ingrese el primer apellido");
+        } else if(segundoApellido.isEmpty()) {
+            secondLastName.setError("Ingrese el primer apellido");
+        } else {
             progressDialog.show();
-            StringRequest request =new StringRequest(Request.Method.POST, "http://localhost/magic/insertar.php", new Response.Listener<String>() {
+            Client client = ApiRetrofit.getRetrofitInstance().create(Client.class);
+            ApiSendClientRegister newCient = new ApiSendClientRegister(Pass, Nombre, primerApellido, segundoApellido, Correo);
+            Call<ApiResponseClientRegister> call = client.registerUser(newCient);
+
+            call.enqueue(new Callback<ApiResponseClientRegister>() {
                 @Override
-                public void onResponse(String response) {
-                    if (response.equalsIgnoreCase("Registro correctamente")) {
-                        Toast.makeText(registroN.this, "Datos insertados", Toast.LENGTH_SHORT).show();
-                        progressDialog.dismiss();
+                public void onResponse(Call<ApiResponseClientRegister> call, Response<ApiResponseClientRegister> response) {
+                    if (response.isSuccessful()){
+                        ApiResponseClientRegister apiResponse = response.body();
+                        if (apiResponse != null) {
+                            startActivity(new Intent(registroN.this, login.class));
+                        } else {
+                            showMessage("Error en la solicitud");
 
-                        Intent intent = new Intent(registroN.this, Principal.class);
-                        startActivity(intent);
+                        }
                     } else {
-                        Toast.makeText(registroN.this, response, Toast.LENGTH_SHORT).show();
-                        progressDialog.dismiss();
-                        Toast.makeText(registroN.this, "No se pudo insertar", Toast.LENGTH_SHORT).show();
+                        if(response.code() == 404) {
+                            showMessage("Datos incorrectos");
 
+                        } else {
+                            showMessage("Error en la solicitud");
+                        }
                     }
                 }
-            }, new Response.ErrorListener() {
+
                 @Override
-                public void onErrorResponse(VolleyError error) {
-                    Toast.makeText(registroN.this,error.getMessage(), Toast.LENGTH_SHORT).show();
-                    progressDialog.dismiss();
+                public void onFailure(Call<ApiResponseClientRegister> call, Throwable t) {
+                    showMessage("Error en la conexión");
                 }
-            }){
-                @Nullable
-                @Override
-                protected Map<String, String> getParams() throws AuthFailureError {
-                    Map<String,String>params=new HashMap<>();
-                    params.put("nombre", String.valueOf(nombre));
-                    params.put("correo", String.valueOf(correo));
-                    params.put("pass", String.valueOf(pass));
-                    return params;
-                }
-            };
-            RequestQueue requestQueue= Volley.newRequestQueue(registroN.this);
-            requestQueue.add(request);
+            });
+
+            progressDialog.dismiss();
         }
 
     }
@@ -120,5 +137,9 @@ public class registroN extends AppCompatActivity{
     public void onBackPressed() {
         super.onBackPressed();
         finish();
+    }
+
+    public void showMessage(String message) {
+        Toast.makeText(registroN.this, message, Toast.LENGTH_SHORT).show();
     }
 }

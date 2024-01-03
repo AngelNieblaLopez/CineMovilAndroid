@@ -11,6 +11,15 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.magic.R;
+import com.example.magic.globals;
+import com.example.magic.retrofit.ApiRetrofit;
+import com.example.magic.retrofit.clients.ApiClientLogin;
+import com.example.magic.retrofit.clients.ApiResponseClientLogin;
+import com.example.magic.retrofit.clients.Client;
+
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 public class login extends AppCompatActivity {
 private EditText userEdt, passEdt;
@@ -31,11 +40,52 @@ private Button loginBtn;
         loginBtn.setOnClickListener(v -> {
             if (userEdt.getText().toString().isEmpty() || passEdt.getText().toString().isEmpty()){
                 Toast.makeText(login.this, "Ingrese su correo y contraseña", Toast.LENGTH_SHORT).show();
-            }else if (userEdt.getText().toString().equals("test") && passEdt.getText().toString().equals("test")){
+            }else {
+                Client client = ApiRetrofit.getRetrofitInstance().create(Client.class);
+                String email = userEdt.getText().toString();
+                String pass = passEdt.getText().toString();
+                Call<ApiResponseClientLogin> call = client.loginClient(pass, email);
+
+                call.enqueue(new Callback<ApiResponseClientLogin>() {
+                    @Override
+                    public void onResponse(Call<ApiResponseClientLogin> call, Response<ApiResponseClientLogin> response) {
+                        if (response.isSuccessful()){
+                            ApiResponseClientLogin apiResponse = response.body();
+                            if (apiResponse != null) {
+                                ApiClientLogin client = apiResponse.client;
+                                globals.clientId = client.id;
+
+                                // Cambio de activity
+                                startActivity(new Intent(login.this, Principal.class));
+                            } else {
+                                showMessage("Error en la solicitud");
+
+                            }
+                        } else {
+                            if(response.code() == 404) {
+                                showMessage("Datos incorrectos");
+
+                            } else {
+                                showMessage("Error en la solicitud");
+                            }
+                        }
+                    }
+
+                    @Override
+                    public void onFailure(Call<ApiResponseClientLogin> call, Throwable t) {
+                        showMessage("Error en la conexión");
+                    }
+                });
+            }
+
+                /*
+                if (userEdt.getText().toString().equals("test") && passEdt.getText().toString().equals("test")){
                 startActivity(new Intent(login.this, Principal.class));
             }else{
                 Toast.makeText(login.this, "Su correo o contraseña no es correcta", Toast.LENGTH_SHORT).show();
             }
+            */
+
         });
 
 
@@ -69,6 +119,10 @@ private Button loginBtn;
         });
 
 
+    }
+
+    public void showMessage(String message) {
+        Toast.makeText(login.this, message, Toast.LENGTH_SHORT).show();
     }
 
 }

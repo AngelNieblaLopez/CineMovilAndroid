@@ -1,98 +1,69 @@
 package com.example.magic.Domain;
 
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Random;
+
+import com.example.magic.retrofit.movies.GenresAdapter;
+import com.google.gson.annotations.Expose;
+import com.google.gson.annotations.JsonAdapter;
+import com.google.gson.annotations.SerializedName;
+
+
 import java.util.List;
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
 public class Datum {
-
     @SerializedName("id")
     @Expose
-    private Integer id;
-    @SerializedName("title")
+    public Integer id;
+    @SerializedName("movie_name")
     @Expose
-    private String title;
-    @SerializedName("poster")
+    public String title;
+    @SerializedName("movie_image_url")
     @Expose
-    private String poster;
-    @SerializedName("year")
+    public String poster;
+
+    public String year;
+
+    public String country;
+
+    public String imdbRating;
+    @SerializedName("category_description")
     @Expose
-    private String year;
-    @SerializedName("country")
-    @Expose
-    private String country;
-    @SerializedName("imdb_rating")
-    @Expose
-    private String imdbRating;
-    @SerializedName("genres")
-    @Expose
-    private List<String> genres;
-    @SerializedName("images")
-    @Expose
-    private List<String> images;
+    public String category;
 
-    public Integer getId() {
-        return id;
+    public List<String> genres;
+
+
+    public List<String> images;
+
+
+    public Datum() {
+        this.year = generateRandomNumber(2010, 2020);
+        this.imdbRating =  generateRandomNumber(5, 9);
+        this.country = "EE.UU";
     }
 
-    public void setId(Integer id) {
-        this.id = id;
-    }
+    public void tranformFinalData() {
+        List<String> categoryList = new ArrayList<>();
+        categoryList.add(this.category);
 
-    public String getTitle() {
-        return title;
-    }
+        this.genres = categoryList;
 
-    public void setTitle(String title) {
-        this.title = title;
-    }
+        List<String> moviesList = new ArrayList<>();
+        moviesList.add(this.poster);
 
-    public String getPoster() {
-        return poster;
+        this.images = moviesList;
     }
+    public static  String  generateRandomNumber(int inicio, int fin) {
+        Random random = new Random();
+        int randomNumber = random.nextInt(fin - inicio + 1) + inicio;
+        return String.valueOf(randomNumber);
 
-    public void setPoster(String poster) {
-        this.poster = poster;
+
     }
-
-    public String getYear() {
-        return year;
-    }
-
-    public void setYear(String year) {
-        this.year = year;
-    }
-
-    public String getCountry() {
-        return country;
-    }
-
-    public void setCountry(String country) {
-        this.country = country;
-    }
-
-    public String getImdbRating() {
-        return imdbRating;
-    }
-
-    public void setImdbRating(String imdbRating) {
-        this.imdbRating = imdbRating;
-    }
-
-    public List<String> getGenres() {
-        return genres;
-    }
-
-    public void setGenres(List<String> genres) {
-        this.genres = genres;
-    }
-
-    public List<String> getImages() {
-        return images;
-    }
-
-    public void setImages(List<String> images) {
-        this.images = images;
-    }
-
 }
+
+

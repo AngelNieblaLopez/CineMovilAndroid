@@ -11,12 +11,24 @@ import android.widget.Toast;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.magic.R;
+import com.example.magic.globals;
+import com.example.magic.retrofit.ApiRetrofit;
+import com.example.magic.retrofit.sales.ApiResponseSaleRegister;
+import com.example.magic.retrofit.sales.ApiSendSaleRegister;
+import com.example.magic.retrofit.sales.Sale;
+
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 public class PagoActivity extends AppCompatActivity {
+
 
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_pago);
+
+
 
         // Obtener referencias a los elementos del diseño
         EditText editTextCardNumber = findViewById(R.id.editTextCardNumber);
@@ -48,18 +60,53 @@ public class PagoActivity extends AppCompatActivity {
     }
 
     private void realizarPago(String numeroTarjeta, String fechaVencimiento, String nipTarjeta, String propietario) {
-        // Implementa la lógica para procesar el pago aquí
-        // Puedes integrar tu pasarela de pago y manejar la lógica correspondiente
 
-        // Por ejemplo, mostrar un mensaje de éxito con los detalles del pago
-        String mensajeExito = "Pago realizado con éxito\n" +
-                "Número de tarjeta: " + numeroTarjeta + "\n" +
-                "Fecha de vencimiento: " + fechaVencimiento + "\n" +
-                "NIP de la tarjeta: " + nipTarjeta + "\n" +
-                "Propietario: " + propietario;
+        Sale sale = ApiRetrofit.getRetrofitInstance().create(Sale.class);
+        ApiSendSaleRegister newSale = new ApiSendSaleRegister(globals.functionId, String.valueOf(globals.clientId), propietario, numeroTarjeta,  nipTarjeta, fechaVencimiento, globals.seatsIds);
+        Call<ApiResponseSaleRegister> call = sale.registerSale(newSale);
 
-        Toast.makeText(this, mensajeExito, Toast.LENGTH_SHORT).show();
+        call.enqueue(new Callback<ApiResponseSaleRegister>() {
+            @Override
+            public void onResponse(Call<ApiResponseSaleRegister> call, Response<ApiResponseSaleRegister> response) {
+                if (response.isSuccessful()){
+                    ApiResponseSaleRegister apiResponse = response.body();
+                    if (apiResponse != null) {
 
-        // Puedes realizar más acciones según el resultado del pago, como navegar a otra actividad, etc.
+                        String mensajeExito = "Pago realizado con éxito\n" +
+                                "Número de tarjeta: " + numeroTarjeta + "\n" +
+                                "Fecha de vencimiento: " + fechaVencimiento + "\n" +
+                                "NIP de la tarjeta: " + nipTarjeta + "\n" +
+                                "Propietario: " + propietario;
+
+                        showMessage(mensajeExito);
+                        startActivity(new Intent(PagoActivity.this, Principal.class));
+                    } else {
+                        showMessage("Error en la solicitud");
+
+                    }
+                } else {
+                    if(response.code() == 404) {
+                        showMessage("Datos incorrectos");
+
+                    } else {
+                        showMessage("Error en la solicitud");
+                    }
+                }
+            }
+
+            @Override
+            public void onFailure(Call<ApiResponseSaleRegister> call, Throwable t) {
+                showMessage("Error en la conexión");
+            }
+        });
+
+
+
+
+
+    }
+
+    public void showMessage(String message) {
+        Toast.makeText(PagoActivity.this, message, Toast.LENGTH_SHORT).show();
     }
 }

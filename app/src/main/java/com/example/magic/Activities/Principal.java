@@ -16,6 +16,7 @@ import android.view.View;
 import android.widget.LinearLayout;
 import android.widget.ProgressBar;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
@@ -23,13 +24,20 @@ import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
 import com.example.magic.Adapters.FilmListAdapter;
 import com.example.magic.Adapters.SliderAdapters;
+import com.example.magic.Domain.Datum;
 import com.example.magic.Domain.ListFilm;
 import com.example.magic.Domain.SliderItems;
 import com.example.magic.R;
+import com.example.magic.retrofit.ApiRetrofit;
+import com.example.magic.retrofit.movies.Movie;
 import com.google.gson.Gson;
 
 import java.util.ArrayList;
 import java.util.List;
+
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 public class Principal extends AppCompatActivity {
     private RecyclerView.Adapter adapterCartelera, adapterPreventa;
@@ -60,7 +68,7 @@ public class Principal extends AppCompatActivity {
             @Override
             public void onClick(View v) {
 
-                Intent intent = new Intent(Principal.this, favoritos.class);
+                Intent intent = new Intent(Principal.this, Principal.class);
                 startActivity(intent);
             }
         });
@@ -79,42 +87,50 @@ public class Principal extends AppCompatActivity {
         initView();
         banners();
         sendRequestCartelera();
-        sendRequestPreventa();
-
 
     }
 
     private void sendRequestCartelera() {
-        mRequestQueue= Volley.newRequestQueue(this);
+
         loading1.setVisibility(View.VISIBLE);
-        mStringRequest=new StringRequest(Request.Method.GET, "https://moviesapi.ir/api/v1/movies?page=1", response -> {
-            Gson gson= new Gson();
-            loading1.setVisibility(View.GONE);
-            ListFilm items=gson.fromJson(response,ListFilm.class);
-            adapterCartelera=new FilmListAdapter(items);
-            recyclerViewCartelera.setAdapter(adapterCartelera);
-        }, error -> {
-            loading1.setVisibility(View.GONE);
-            Log.i("UiLover", "onErrorResponse: "+error.toString());
+
+        Movie movie = ApiRetrofit.getRetrofitInstance().create(Movie.class);
+        Call<ListFilm> call = movie.withFunction();
+
+        call.enqueue(new Callback<ListFilm>() {
+            @Override
+            public void onResponse(Call<ListFilm> call, Response<ListFilm> response) {
+                if (response.isSuccessful()){
+                    ListFilm apiResponse = response.body();
+                    for (Datum item:
+                         apiResponse.data) {
+                        item.tranformFinalData();
+                    }
+                    if (apiResponse != null) {
+                        loading1.setVisibility(View.GONE);
+                        adapterCartelera=new FilmListAdapter(apiResponse);
+                        recyclerViewCartelera.setAdapter(adapterCartelera);
+                    } else {
+                        showMessage("Error en la solicitud");
+
+                    }
+                } else {
+                    showMessage("Error en la solicitud");
+
+                }
+                loading1.setVisibility(View.GONE);
+            }
+
+            @Override
+            public void onFailure(Call<ListFilm> call, Throwable t) {
+                showMessage("Error en la conexión");
+                loading1.setVisibility(View.GONE);
+            }
         });
-        mRequestQueue.add(mStringRequest);
+
     }
 
-    private void sendRequestPreventa() {
-        mRequestQueue= Volley.newRequestQueue(this);
-        loading2.setVisibility(View.VISIBLE);
-        mStringRequest2=new StringRequest(Request.Method.GET, "https://moviesapi.ir/api/v1/movies?page=2", response -> {
-            Gson gson= new Gson();
-            loading2.setVisibility(View.GONE);
-            ListFilm items=gson.fromJson(response,ListFilm.class);
-            adapterPreventa=new FilmListAdapter(items);
-            recyclerViewPreventa.setAdapter(adapterPreventa);
-        }, error -> {
-            loading2.setVisibility(View.GONE);
-            Log.i("UiLover", "onErrorResponse: "+error.toString());
-        });
-        mRequestQueue.add(mStringRequest2);
-    }
+
 
     private void banners() {
         List<SliderItems> sliderItems= new ArrayList<>();
@@ -170,9 +186,13 @@ public class Principal extends AppCompatActivity {
         viewPager2=findViewById(R.id.viewpagerSlider);
         recyclerViewCartelera=findViewById(R.id.view1);
         recyclerViewCartelera.setLayoutManager(new LinearLayoutManager(this,LinearLayoutManager.HORIZONTAL, false));
-        recyclerViewPreventa=findViewById(R.id.view2);
-        recyclerViewPreventa.setLayoutManager(new LinearLayoutManager(this,LinearLayoutManager.HORIZONTAL,false));
+
+
         loading1=findViewById(R.id.progressBar1);
-        loading2=findViewById(R.id.progressBar2);
+
+    }
+
+    public void showMessage(String message) {
+        Toast.makeText(Principal.this, message, Toast.LENGTH_SHORT).show();
     }
 }

@@ -15,18 +15,31 @@ import android.widget.Toast;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.magic.R;
+import com.example.magic.globals;
+import com.example.magic.retrofit.ApiRetrofit;
+import com.example.magic.retrofit.clients.ApiResponseClientRegister;
+import com.example.magic.retrofit.clients.ApiSendClientRegister;
+import com.example.magic.retrofit.clients.Client;
+import com.example.magic.retrofit.sales.ApiResponseSaleRegister;
+import com.example.magic.retrofit.sales.ApiSendSaleRegister;
+import com.example.magic.retrofit.sales.Sale;
+
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 public class boletos extends AppCompatActivity {
 
     private EditText editTextCantidadBoletos;
     private Button btnComprar;
     private TextView textViewResultado;
-
+    private String functionId;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_boletos);
 
+        functionId = getIntent().getStringExtra("functionId");
         editTextCantidadBoletos = findViewById(R.id.editTextCantidadBoletos);
         btnComprar = findViewById(R.id.btnComprar);
         textViewResultado = findViewById(R.id.textViewResultado);
@@ -44,8 +57,26 @@ public class boletos extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 // Crear un Intent para ir a Activity2
-                Intent intent = new Intent(boletos.this, sillas.class);
-                startActivity(intent);
+                String cantidadBoletosStr = editTextCantidadBoletos.getText().toString();
+
+                if (!TextUtils.isEmpty(cantidadBoletosStr)) {
+                    int cantidadBoletos = Integer.parseInt(cantidadBoletosStr);
+
+                    if(cantidadBoletos <= 0) {
+                        textViewResultado.setText("Se debe de ingresar un valor mayor a 0");
+                        return;
+                    }
+                    globals.functionId = functionId;
+                    globals.quantitySeats = cantidadBoletos;
+                    Intent intent = new Intent(boletos.this, sillas.class);
+                    startActivity(intent);
+
+                } else {
+                    showMessage("Ingrese la cantidad de boletos");
+                }
+
+
+
             }
         });
 
@@ -53,18 +84,10 @@ public class boletos extends AppCompatActivity {
 
     private void realizarCompra() {
         // Obtiene la cantidad ingresada por el usuario
-        String cantidadBoletosStr = editTextCantidadBoletos.getText().toString();
 
-        if (!TextUtils.isEmpty(cantidadBoletosStr)) {
-            int cantidadBoletos = Integer.parseInt(cantidadBoletosStr);
+    }
 
-            // Aquí podrías implementar la lógica de compra de boletos, como procesar el pago, etc.
-
-            // Muestra el resultado de la compra en el TextView
-            textViewResultado.setText("Compra realizada para " + cantidadBoletos + " boletos");
-        } else {
-            // Manejar el caso en que el campo esté vacío
-            Toast.makeText(this, "Ingrese la cantidad de boletos", Toast.LENGTH_SHORT).show();
-        }
+    public void showMessage(String message) {
+        Toast.makeText(boletos.this, message, Toast.LENGTH_SHORT).show();
     }
 }
