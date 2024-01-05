@@ -20,23 +20,18 @@ import com.android.volley.RequestQueue;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
 import com.bumptech.glide.Glide;
-import com.example.magic.Adapters.ActorsListAdapter;
 import com.example.magic.Domain.FilmItem;
 import com.example.magic.R;
-import com.example.magic.globals;
 import com.example.magic.retrofit.ApiRetrofit;
-import com.example.magic.retrofit.clients.ApiClientLogin;
-import com.example.magic.retrofit.clients.ApiResponseClientLogin;
-import com.example.magic.retrofit.clients.Client;
 import com.example.magic.retrofit.functions.ApiResponseScheduleFunctions;
 import com.example.magic.retrofit.functions.ApiScheduleFunctions;
 import com.example.magic.retrofit.functions.Function;
 import com.example.magic.retrofit.movies.ApiMovieDetail;
 import com.example.magic.retrofit.movies.ApiResponseMovieDetail;
 import com.example.magic.retrofit.movies.Movie;
+import com.example.magic.retrofit.movies.Movie;
 import com.google.gson.Gson;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import retrofit2.Call;
