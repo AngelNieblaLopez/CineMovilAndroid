@@ -20,18 +20,20 @@ import com.android.volley.RequestQueue;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
 import com.bumptech.glide.Glide;
+import com.example.magic.Adapters.ActorsListAdapter;
 import com.example.magic.Domain.FilmItem;
 import com.example.magic.R;
+import com.example.magic.globals;
 import com.example.magic.retrofit.ApiRetrofit;
+import com.example.magic.retrofit.clients.ApiClientLogin;
+import com.example.magic.retrofit.clients.ApiResponseClientLogin;
+import com.example.magic.retrofit.clients.Client;
 import com.example.magic.retrofit.functions.ApiResponseScheduleFunctions;
 import com.example.magic.retrofit.functions.ApiScheduleFunctions;
 import com.example.magic.retrofit.functions.Function;
-import com.example.magic.retrofit.movies.ApiMovieDetail;
-import com.example.magic.retrofit.movies.ApiResponseMovieDetail;
-import com.example.magic.retrofit.movies.Movie;
-import com.example.magic.retrofit.movies.Movie;
 import com.google.gson.Gson;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import retrofit2.Call;
@@ -43,11 +45,11 @@ public class Detalles extends AppCompatActivity {
     private RequestQueue mRequestQueue;
     private StringRequest mStringRequest;
     private ProgressBar progressBar;
-    private TextView titleTxt, movieRateTxt, movieTimeTxt, movieSummaryInfo;
+    private TextView titleTxt, movieRateTxt, movieTimeTxt, movieSummaryInfo, movieActorsInfo;
     private int idFilm;
     private ImageView pic2, backImg;
-    private RecyclerView.Adapter adapterActorList;
-    private RecyclerView  recyclerViewCategory;
+    private RecyclerView.Adapter adapterActorList, adapterCategory;
+    private RecyclerView recyclerViewActors, recyclerViewCategory;
     private NestedScrollView scrollView;
 
     private Button btnShowHorarios;
@@ -59,19 +61,25 @@ public class Detalles extends AppCompatActivity {
 
         idFilm = getIntent().getIntExtra("id", 0);
         initView();
-        sendRequest(idFilm);
-      //  sendRequest();
+        sendRequest();
+
+        // Move this line here
+        btnShowHorarios = findViewById(R.id.btnShowHorarios);
+        btnShowHorarios.setOnClickListener(v -> make());
     }
 
     private void  make(){
         obtenerHorariosDinamicos(new HorariosCallback() {
             @Override
             public void onHorariosObtenidos(List<ApiScheduleFunctions> horarios) {
+                // Hacer algo con los horarios obtenidos
+                // Por ejemplo, mostrarlos en un diálogo
                 showHorarios(horarios);
             }
 
             @Override
             public void onError(String mensajeError) {
+                // Manejar el error
                 showMessage(mensajeError);
             }
         });
@@ -82,8 +90,15 @@ public class Detalles extends AppCompatActivity {
             AlertDialog.Builder builder = new AlertDialog.Builder(this);
             builder.setTitle("Horarios Disponibles")
                     .setItems(getHorariosArray(scheduleFunctions), (dialog, which) -> {
+                        // Lógica para manejar la selección del horario si es necesario
                         ApiScheduleFunctions selectedSchedule = scheduleFunctions.get(which);
+                        String selectedHorario = selectedSchedule.startDate;
+
+                        // Aquí puedes usar un Intent para llevar al usuario a otra actividad
+                        // Puedes reemplazar NuevaActividad.class con el nombre de tu nueva actividad
                         Intent intent = new Intent(Detalles.this, boletos.class);
+
+                        // Puedes pasar datos adicionales a la nueva actividad si es necesario
                         intent.putExtra("functionId", selectedSchedule.id);
                         startActivity(intent);
                     });
@@ -139,46 +154,6 @@ public class Detalles extends AppCompatActivity {
         });
     }
 
-    private void sendRequest(int movieId) {
-
-        progressBar.setVisibility(View.GONE);
-        scrollView.setVisibility(View.VISIBLE);
-        Movie movie = ApiRetrofit.getRetrofitInstance().create(Movie.class);
-        Call<ApiResponseMovieDetail> call = movie.detail(movieId);
-
-        call.enqueue(new Callback<ApiResponseMovieDetail>() {
-            @Override
-            public void onResponse(Call<ApiResponseMovieDetail> call, Response<ApiResponseMovieDetail> response) {
-                if (response.isSuccessful()){
-                    ApiResponseMovieDetail apiResponse = response.body();
-                    if (apiResponse != null) {
-                        ApiMovieDetail detail = apiResponse.movieDetail;
-
-
-                        Glide.with(Detalles.this)
-                                .load(detail.imageUrl)
-                                .into(pic2);
-
-                        progressBar.setVisibility(View.GONE);
-                        scrollView.setVisibility(View.VISIBLE);
-
-                        titleTxt.setText(detail.name);
-                        movieRateTxt.setText("2");
-                        movieTimeTxt.setText("2");
-                        movieSummaryInfo.setText(detail.description);
-                    }
-                } else {
-                        showMessage("Error en la solicitud");
-                }
-            }
-
-            @Override
-            public void onFailure(Call<ApiResponseMovieDetail> call, Throwable t) {
-                showMessage("Error en la conexión");
-                progressBar.setVisibility(View.GONE);
-            }
-        });
-    }
 
     private void sendRequest() {
         mRequestQueue= Volley.newRequestQueue(this);
@@ -196,12 +171,15 @@ public class Detalles extends AppCompatActivity {
                     .load(item.getPoster())
                     .into(pic2);
 
-            //titleTxt.setText(item.getTitle());
-            titleTxt.setText("SDF");
+            titleTxt.setText(item.getTitle());
             movieRateTxt.setText(item.getImdbRating());
             movieTimeTxt.setText(item.getRuntime());
             movieSummaryInfo.setText(item.getPlot());
-
+            movieActorsInfo.setText(item.getActors());
+            if(item.getImages() != null){
+                adapterActorList= new ActorsListAdapter(item.getImages());
+                recyclerViewActors.setAdapter(adapterActorList);
+            }
 
         }, error -> progressBar.setVisibility(View.GONE));
         mRequestQueue.add(mStringRequest);
@@ -215,11 +193,13 @@ public class Detalles extends AppCompatActivity {
         movieRateTxt=findViewById(R.id.movieStar);
         movieTimeTxt=findViewById(R.id.movieTime);
         movieSummaryInfo=findViewById(R.id.movieSummery);
+        movieActorsInfo=findViewById(R.id.movieActorInfo);
         backImg=findViewById(R.id.backImg);
         recyclerViewCategory=findViewById(R.id.genreView);
+        recyclerViewActors=findViewById(R.id.imagesRecycler);
+        recyclerViewActors.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false));
         recyclerViewCategory.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false));
-        btnShowHorarios = findViewById(R.id.btnShowHorarios);
-        btnShowHorarios.setOnClickListener(v -> make());
+
         backImg.setOnClickListener(v -> finish());
     }
 

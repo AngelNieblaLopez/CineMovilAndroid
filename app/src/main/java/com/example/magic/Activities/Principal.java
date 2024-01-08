@@ -11,13 +11,17 @@ import androidx.viewpager2.widget.ViewPager2;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
+import android.util.Log;
 import android.view.View;
 import android.widget.LinearLayout;
 import android.widget.ProgressBar;
+import android.widget.TextView;
 import android.widget.Toast;
 
+import com.android.volley.Request;
 import com.android.volley.RequestQueue;
 import com.android.volley.toolbox.StringRequest;
+import com.android.volley.toolbox.Volley;
 import com.example.magic.Adapters.FilmListAdapter;
 import com.example.magic.Adapters.SliderAdapters;
 import com.example.magic.Domain.Datum;
@@ -26,6 +30,7 @@ import com.example.magic.Domain.SliderItems;
 import com.example.magic.R;
 import com.example.magic.retrofit.ApiRetrofit;
 import com.example.magic.retrofit.movies.Movie;
+import com.google.gson.Gson;
 
 import java.util.ArrayList;
 import java.util.List;
