@@ -49,12 +49,12 @@ public class Principal extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_principal);
 
-        LinearLayout usuario= findViewById(R.id.usuario);
-        usuario.setOnClickListener(new View.OnClickListener() {
+        LinearLayout Compras = findViewById(R.id.compras);
+        Compras.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
 
-                Intent intent = new Intent(Principal.this, usuario.class);
+                Intent intent = new Intent(Principal.this, compra.class);
                 startActivity(intent);
             }
         });

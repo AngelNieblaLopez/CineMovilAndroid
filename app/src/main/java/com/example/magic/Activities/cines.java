@@ -16,12 +16,12 @@ public class cines extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_cines);
 
-        LinearLayout usuario= findViewById(R.id.usuario);
-        usuario.setOnClickListener(new View.OnClickListener() {
+        LinearLayout Compras= findViewById(R.id.compras);
+        Compras.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
 
-                Intent intent = new Intent(cines.this, usuario.class);
+                Intent intent = new Intent(cines.this, compra.class);
                 startActivity(intent);
             }
         });
